@@ -19,7 +19,6 @@ def parse_digits(str):
 
 def structure_coefficients(digits, degree):
     res = [0] * (degree + 1)
-    print(res)
     for i in range(1, len(digits), 2):
         res[int(digits[i])] = res[int(digits[i])] + float(digits[i - 1])
     return res
@@ -30,15 +29,28 @@ def calculate_final_coefficients(left_digits, right_digits):
         left_digits[i] = left_digits[i] - right_digits[i]
     return left_digits
 
+
+def put_sign(digit, index):
+    if digit == 0:
+        return ' + 0'
+    if index > 0:
+        if digit > 0:
+            return ' + ' + str(digit).rstrip('.0')
+        else:
+            return ' - ' + str(digit * -1).rstrip('.0')
+    return str(digit).rstrip('.0')
+
 def get_reduced_form(coefficients):
     reduced_form = ""
-    for coeff in coefficients:
-        reduced_form = reduced_form + str(coeff) + ' * ' + 'X^' + coefficients.index(coeff)
+    for i in range(len(coefficients)):
+        reduced_form = reduced_form + put_sign(coefficients[i], i) + ' * ' + 'X^' + str(i)
+    reduced_form = reduced_form + ' = 0'
     return reduced_form
 
 
 def print_answer(coefficients, degree):
     print('Reduced form: ' + get_reduced_form(coefficients))
+    print('Polynomial degree: ' + str(degree))
 
 
 if __name__ == '__main__':
