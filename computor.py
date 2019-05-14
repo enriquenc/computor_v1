@@ -7,7 +7,7 @@ def split_equals(string):
 
 
 def check_degree(splited):
-    return max(filter(lambda a: splited.index(a) % 2 != 0, splited))
+    return int(max(filter(lambda a: splited.index(a) % 2 != 0, splited)))
 
 
 def parse_digits(str):
@@ -58,11 +58,8 @@ if __name__ == '__main__':
     splited = split_equals(input_string)
     left_digits = parse_digits(splited[0])
     right_digits = parse_digits(splited[1])
-    degree = int(max(check_degree(left_digits), check_degree(right_digits)))
+    degree = max(check_degree(left_digits), check_degree(right_digits))
     left_digits = structure_coefficients(left_digits, degree)
     right_digits = structure_coefficients(right_digits, degree)
     coefficients = calculate_final_coefficients(left_digits, right_digits)
     print_answer(coefficients, degree)
-
-
-
