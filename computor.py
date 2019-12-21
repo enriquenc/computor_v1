@@ -1,4 +1,5 @@
 import re
+import math
 
 
 def split_equals(string):
@@ -32,6 +33,8 @@ def calculate_final_coefficients(left_digits, right_digits):
 
 def put_sign(digit, index):
     if digit == 0:
+        if index == 0:
+            return '0'
         return ' + 0'
     if index > 0:
         if digit > 0:
@@ -51,6 +54,28 @@ def get_reduced_form(coefficients):
 def print_answer(coefficients, degree):
     print('Reduced form: ' + get_reduced_form(coefficients))
     print('Polynomial degree: ' + str(degree))
+    solution = 0
+    #print(coefficients)
+    if coefficients[0] == 0 and coefficients[1] == 0 and coefficients[2] == 0:
+        print('Answer is all the real numbers.')
+    elif coefficients[1] == 0 and coefficients[2] == 0:
+        print('No solution.')
+    elif len(coefficients) > 3:
+        print('The polynomial degree is stricly greater than 2, I can\'t solve.')
+    elif coefficients[2] == 0:
+        print('Answer: ' + str(-coefficients[0] / coefficients[1]))
+    else:
+        d = pow(coefficients[1], 2) - 4 * coefficients[2] * coefficients[0]
+        if d > 0:
+            print('Discriminant is strictly positive, the two solutions are: \n' + str((-coefficients[1] - math.sqrt(d)) / (2 * coefficients[2])) + '\n' +
+                                                                                    str((-coefficients[1] + math.sqrt(d)) / (2 * coefficients[2])))
+        elif d < 0:
+            print('Discriminant is strictly negative, there is no solution.')
+        else:
+            print('Discriminant is zero. The solution is: \n' + str(-coefficients[1] / (2 * coefficients[2])))
+
+
+
 
 
 if __name__ == '__main__':
@@ -62,4 +87,7 @@ if __name__ == '__main__':
     left_digits = structure_coefficients(left_digits, degree)
     right_digits = structure_coefficients(right_digits, degree)
     coefficients = calculate_final_coefficients(left_digits, right_digits)
+
+    for i in range(len(coefficients), 3):
+        coefficients.append(0)
     print_answer(coefficients, degree)
