@@ -79,7 +79,7 @@ def print_answer(coefficients, degree):
 
 
 def error():
-    print("Wrong input.")
+    print("\033[91mError, wrong input!\033[0m")
     exit(0)
 
 if __name__ == '__main__':
@@ -96,3 +96,4 @@ if __name__ == '__main__':
     for i in range(len(coefficients), 3):
         coefficients.append(0)
     print_answer(coefficients, degree)
+
