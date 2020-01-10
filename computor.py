@@ -3,11 +3,15 @@ import myMath
 
 
 def split_equals(string):
+    if string == []:
+        error()
     string = string.replace(' ', '')
     return string.split('=')
 
 
 def check_degree(splited):
+    if splited == []:
+        error()
     return int(max(filter(lambda a: splited.index(a) % 2 != 0, splited)))
 
 
@@ -74,8 +78,14 @@ def print_answer(coefficients, degree):
             print('Discriminant is zero. The solution is: \n' + str(-coefficients[1] / (2 * coefficients[2])))
 
 
+def error():
+    print("Wrong input.")
+    exit(0)
+
 if __name__ == '__main__':
     input_string = input()
+    if input_string is None or input_string == [] or input_string == "":
+        error()
     splited = split_equals(input_string)
     left_digits = parse_digits(splited[0])
     right_digits = parse_digits(splited[1])
